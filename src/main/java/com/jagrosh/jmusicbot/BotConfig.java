@@ -19,7 +19,7 @@ import com.jagrosh.jmusicbot.entities.Prompt;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
 import com.jagrosh.jmusicbot.utils.OtherUtil;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.typesafe.config.*;
+import com.typesafe..*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,12 +32,12 @@ import net.dv8tion.jda.api.entities.Activity;
  * 
  * @author John Grosh (jagrosh)
  */
-public class BotConfig
+public class Bot
 {
     private final Prompt prompt;
-    private final static String CONTEXT = "Config";
-    private final static String START_TOKEN = "/// START OF JMUSICBOT CONFIG ///";
-    private final static String END_TOKEN = "/// END OF JMUSICBOT CONFIG ///";
+    private final static String CONTEXT = "";
+    private final static String START_TOKEN = "/// START OF JMUSICBOT  ///";
+    private final static String END_TOKEN = "/// END OF JMUSICBOT  ///";
     
     private Path path = null;
     private String token, prefix, altprefix, helpWord, playlistsFolder,
@@ -46,11 +46,11 @@ public class BotConfig
     private long owner, maxSeconds, aloneTimeUntilStop;
     private OnlineStatus status;
     private Activity game;
-    private Config aliases, transforms;
+    private  aliases, transforms;
 
     private boolean valid = false;
     
-    public BotConfig(Prompt prompt)
+    public Bot(Prompt prompt)
     {
         this.prompt = prompt;
     }
@@ -59,48 +59,48 @@ public class BotConfig
     {
         valid = false;
         
-        // read config from file
+        // read  from file
         try 
         {
-            // get the path to the config, default config.txt
-            path = OtherUtil.getPath(System.getProperty("config.file", System.getProperty("config", "config.txt")));
+            // get the path to the , default .txt
+            path = OtherUtil.getPath(System.getProperty(".file", System.getProperty("", ".txt")));
             if(path.toFile().exists())
             {
-                if(System.getProperty("config.file") == null)
-                    System.setProperty("config.file", System.getProperty("config", "config.txt"));
-                ConfigFactory.invalidateCaches();
+                if(System.getProperty(".file") == null)
+                    System.setProperty(".file", System.getProperty("", ".txt"));
+                Factory.invalidateCaches();
             }
             
-            // load in the config file, plus the default values
-            //Config config = ConfigFactory.parseFile(path.toFile()).withFallback(ConfigFactory.load());
-            Config config = ConfigFactory.load();
+            // load in the  file, plus the default values
+            //  = Factory.parseFile(path.toFile()).withFallback(Factory.load());
+              = Factory.load();
             
             // set values
-            token = config.getString("token");
-            prefix = config.getString("prefix");
-            altprefix = config.getString("altprefix");
-            helpWord = config.getString("help");
-            owner = config.getLong("owner");
-            successEmoji = config.getString("success");
-            warningEmoji = config.getString("warning");
-            errorEmoji = config.getString("error");
-            loadingEmoji = config.getString("loading");
-            searchingEmoji = config.getString("searching");
-            game = OtherUtil.parseGame(config.getString("game"));
-            status = OtherUtil.parseStatus(config.getString("status"));
-            stayInChannel = config.getBoolean("stayinchannel");
-            songInGame = config.getBoolean("songinstatus");
-            npImages = config.getBoolean("npimages");
-            updatealerts = config.getBoolean("updatealerts");
-            useEval = config.getBoolean("eval");
-            maxSeconds = config.getLong("maxtime");
-            aloneTimeUntilStop = config.getLong("alonetimeuntilstop");
-            playlistsFolder = config.getString("playlistsfolder");
-            aliases = config.getConfig("aliases");
-            transforms = config.getConfig("transforms");
+            token = .getString("token");
+            prefix = .getString("prefix");
+            altprefix = .getString("altprefix");
+            helpWord = .getString("help");
+            owner = .getLong("owner");
+            successEmoji = .getString("success");
+            warningEmoji = .getString("warning");
+            errorEmoji = .getString("error");
+            loadingEmoji = .getString("loading");
+            searchingEmoji = .getString("searching");
+            game = OtherUtil.parseGame(.getString("game"));
+            status = OtherUtil.parseStatus(.getString("status"));
+            stayInChannel = .getBoolean("stayinchannel");
+            songInGame = .getBoolean("songinstatus");
+            npImages = .getBoolean("npimages");
+            updatealerts = .getBoolean("updatealerts");
+            useEval = .getBoolean("eval");
+            maxSeconds = .getLong("maxtime");
+            aloneTimeUntilStop = .getLong("alonetimeuntilstop");
+            playlistsFolder = .getString("playlistsfolder");
+            aliases = .get("aliases");
+            transforms = .get("transforms");
             dbots = owner == 113156185389092864L;
             
-            // we may need to write a new config file
+            // we may need to write a new  file
             boolean write = false;
 
             // validate bot token
@@ -112,7 +112,7 @@ public class BotConfig
                         + "\nBot Token: ");
                 if(token==null)
                 {
-                    prompt.alert(Prompt.Level.WARNING, CONTEXT, "No token provided! Exiting.\n\nConfig Location: " + path.toAbsolutePath().toString());
+                    prompt.alert(Prompt.Level.WARNING, CONTEXT, "No token provided! Exiting.\n\n Location: " + path.toAbsolutePath().toString());
                     return;
                 }
                 else
@@ -138,7 +138,7 @@ public class BotConfig
                 }
                 if(owner<=0)
                 {
-                    prompt.alert(Prompt.Level.ERROR, CONTEXT, "Invalid User ID! Exiting.\n\nConfig Location: " + path.toAbsolutePath().toString());
+                    prompt.alert(Prompt.Level.ERROR, CONTEXT, "Invalid User ID! Exiting.\n\n Location: " + path.toAbsolutePath().toString());
                     return;
                 }
                 else
@@ -150,12 +150,12 @@ public class BotConfig
             if(write)
                 writeToFile();
             
-            // if we get through the whole config, it's good to go
+            // if we get through the whole , it's good to go
             valid = true;
         }
-        catch (ConfigException ex)
+        catch (Exception ex)
         {
-            prompt.alert(Prompt.Level.ERROR, CONTEXT, ex + ": " + ex.getMessage() + "\n\nConfig Location: " + path.toAbsolutePath().toString());
+            prompt.alert(Prompt.Level.ERROR, CONTEXT, ex + ": " + ex.getMessage() + "\n\n Location: " + path.toAbsolutePath().toString());
         }
     }
     
@@ -180,8 +180,8 @@ public class BotConfig
         }
         catch(IOException ex) 
         {
-            prompt.alert(Prompt.Level.WARNING, CONTEXT, "Failed to write new config options to config.txt: "+ex
-                + "\nPlease make sure that the files are not on your desktop or some other restricted area.\n\nConfig Location: " 
+            prompt.alert(Prompt.Level.WARNING, CONTEXT, "Failed to write new  options to .txt: "+ex
+                + "\nPlease make sure that the files are not on your desktop or some other restricted area.\n\n Location: " 
                 + path.toAbsolutePath().toString());
         }
     }
@@ -191,7 +191,7 @@ public class BotConfig
         return valid;
     }
     
-    public String getConfigLocation()
+    public String getLocation()
     {
         return path.toFile().getAbsolutePath();
     }
@@ -319,13 +319,13 @@ public class BotConfig
         {
             return aliases.getStringList(command).toArray(new String[0]);
         }
-        catch(NullPointerException | ConfigException.Missing e)
+        catch(NullPointerException | Exception.Missing e)
         {
             return new String[0];
         }
     }
     
-    public Config getTransforms()
+    public  getTransforms()
     {
         return transforms;
     }
