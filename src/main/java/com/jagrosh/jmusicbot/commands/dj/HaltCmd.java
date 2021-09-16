@@ -24,13 +24,13 @@ import com.jagrosh.jmusicbot.commands.DJCommand;
  *
  * @author John Grosh <john.a.grosh@gmail.com>
  */
-public class StopCmd extends DJCommand 
+public class HaltCmd extends DJCommand 
 {
-    public StopCmd(Bot bot)
+    public HaltCmd(Bot bot)
     {
         super(bot);
-        this.name = "stop";
-        this.help = "stops the current song and clears the queue";
+        this.name = "halt";
+        this.help = "playback stops, queue cleared";
         this.aliases = bot.getConfig().getAliases(this.name);
         this.bePlaying = false;
     }
